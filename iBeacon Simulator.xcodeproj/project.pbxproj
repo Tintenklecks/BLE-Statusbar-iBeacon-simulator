@@ -59,7 +59,7 @@
 		6D9117581913ECD40068F873 = {
 			isa = PBXGroup;
 			children = (
-				6D91176A1913ECD40068F873 /* Status Bar Application */,
+				6D91176A1913ECD40068F873 /* iBeacon Simulator */,
 				6D9117631913ECD40068F873 /* Frameworks */,
 				6D9117621913ECD40068F873 /* Products */,
 			);
@@ -93,7 +93,7 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		6D91176A1913ECD40068F873 /* Status Bar Application */ = {
+		6D91176A1913ECD40068F873 /* iBeacon Simulator */ = {
 			isa = PBXGroup;
 			children = (
 				6D9117761913ECD40068F873 /* AppDelegate.h */,
@@ -107,8 +107,8 @@
 				6D91177C1913ECD40068F873 /* Images.xcassets */,
 				6D91176B1913ECD40068F873 /* Supporting Files */,
 			);
-			path = "Status Bar Application";
-			sourceTree = "<group>";
+			path = "iBeacon Simulator";
+			sourceTree = SOURCE_ROOT;
 		};
 		6D91176B1913ECD40068F873 /* Supporting Files */ = {
 			isa = PBXGroup;
@@ -304,8 +304,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Status Bar Application/iBeacon Simulator-Prefix.pch";
-				INFOPLIST_FILE = "Status Bar Application/iBeacon Simulator-Info.plist";
+				GCC_PREFIX_HEADER = "iBeacon Simulator/iBeacon Simulator-Prefix.pch";
+				INFOPLIST_FILE = "iBeacon Simulator/iBeacon Simulator-Info.plist";
 				PRODUCT_NAME = "iBeacon Simulator";
 				WRAPPER_EXTENSION = app;
 			};
@@ -317,8 +317,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Status Bar Application/iBeacon Simulator-Prefix.pch";
-				INFOPLIST_FILE = "Status Bar Application/iBeacon Simulator-Info.plist";
+				GCC_PREFIX_HEADER = "iBeacon Simulator/iBeacon Simulator-Prefix.pch";
+				INFOPLIST_FILE = "iBeacon Simulator/iBeacon Simulator-Info.plist";
 				PRODUCT_NAME = "iBeacon Simulator";
 				WRAPPER_EXTENSION = app;
 			};

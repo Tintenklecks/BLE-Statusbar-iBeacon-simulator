@@ -48,6 +48,8 @@
     
 	NSLog(@"TXT %ld", _showStatusbarText.state);
 	NSLog(@"ANI %ld", _showStatusbarAnimation.state);
+    
+	[self setUpSettingsView];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
@@ -55,6 +57,21 @@
 }
 
 #pragma mark - Load and save Settings
+
+- (void)setUpSettingsView {
+	NSNumberFormatter *intFormatter = [[NSNumberFormatter alloc] init];
+	[intFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	[intFormatter setGeneratesDecimalNumbers:FALSE];
+	[intFormatter setMaximumFractionDigits:0];
+    
+    
+    
+    
+	//	[_UUIDField setFormatter:fmtCurrency];
+	[_majorField setFormatter:intFormatter];
+	[_minorField setFormatter:intFormatter];
+	[_pwrField setFormatter:intFormatter];
+}
 
 - (void)defaultSettings {
 	[[NSUserDefaults standardUserDefaults] registerDefaults:
@@ -215,4 +232,4 @@
 	}
 }
 
-@end
+@end;

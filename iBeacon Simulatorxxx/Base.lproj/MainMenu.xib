@@ -13,37 +13,12 @@
         <customObject id="-3" userLabel="Application"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
-                <outlet property="beaconStatusMenu" destination="LHE-k3-UqT" id="Vzf-zJ-C36"/>
                 <outlet property="showStatusbarAnimation" destination="Ist-kp-qxm" id="3Si-i4-st8"/>
                 <outlet property="showStatusbarText" destination="YHA-cr-J8d" id="qcY-m6-9z1"/>
-                <outlet property="statusMenu" destination="YJL-ob-tBd" id="QbR-SX-am7"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-        <menu title="xxx" id="YJL-ob-tBd">
-            <items>
-                <menuItem title="Start iBeacon" id="LHE-k3-UqT">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="toggleIBeacon:" target="Voe-Tx-rLC" id="0gV-jw-TyT"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Settings" id="KnR-pd-pd2">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="showSettings:" target="Voe-Tx-rLC" id="SJv-a6-qE1"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="kO8-Fr-pN6"/>
-                <menuItem title="Quit" id="oa6-gt-DDu">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="quitIBeacon:" target="Voe-Tx-rLC" id="2lh-KS-qJ2"/>
-                    </connections>
-                </menuItem>
-            </items>
-        </menu>
         <menu title="Main Menu" systemMenu="main" showsStateColumn="NO" autoenablesItems="NO" id="AYu-sK-qS6">
             <items>
                 <menuItem title="iBeacon Simulator" id="1Xt-HY-uBw">
@@ -693,7 +668,7 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="iBeacon Simulator" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="iBeacon Simulator" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="367" height="269"/>

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6D9117601913ECD40068F873"
-               BuildableName = "Status Bar Application.app"
+               BuildableName = "iBeacon Simulator.app"
                BlueprintName = "iBeacon Simulator"
                ReferencedContainer = "container:iBeacon Simulator.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6D9117601913ECD40068F873"
-            BuildableName = "Status Bar Application.app"
+            BuildableName = "iBeacon Simulator.app"
             BlueprintName = "iBeacon Simulator"
             ReferencedContainer = "container:iBeacon Simulator.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6D9117601913ECD40068F873"
-            BuildableName = "Status Bar Application.app"
+            BuildableName = "iBeacon Simulator.app"
             BlueprintName = "iBeacon Simulator"
             ReferencedContainer = "container:iBeacon Simulator.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6D9117601913ECD40068F873"
-            BuildableName = "Status Bar Application.app"
+            BuildableName = "iBeacon Simulator.app"
             BlueprintName = "iBeacon Simulator"
             ReferencedContainer = "container:iBeacon Simulator.xcodeproj">
          </BuildableReference>
