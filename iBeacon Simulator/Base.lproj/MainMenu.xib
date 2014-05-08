@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
+        <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="5056"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -14,7 +16,10 @@
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
                 <outlet property="UUIDField" destination="czz-4r-evZ" id="8ls-5E-8ds"/>
+                <outlet property="UUIDNameField" destination="Dkv-A5-rzP" id="QWK-o4-it3"/>
                 <outlet property="beaconStatusMenu" destination="LHE-k3-UqT" id="Vzf-zJ-C36"/>
+                <outlet property="infoWebView" destination="MW0-bR-I34" id="PQ6-Ue-KBi"/>
+                <outlet property="infoWindow" destination="1Oe-Uq-Ux9" id="z6h-MF-TCz"/>
                 <outlet property="majorField" destination="oG7-ld-G9I" id="vRT-v5-UlL"/>
                 <outlet property="majorStepper" destination="D1T-UZ-la7" id="5F0-4N-shy"/>
                 <outlet property="minorField" destination="bqs-XL-BRB" id="6nt-xR-cat"/>
@@ -23,6 +28,7 @@
                 <outlet property="pwrStepper" destination="ssh-I9-6pc" id="3gq-Yx-5xo"/>
                 <outlet property="showStatusbarAnimation" destination="Ist-kp-qxm" id="3Si-i4-st8"/>
                 <outlet property="showStatusbarText" destination="YHA-cr-J8d" id="qcY-m6-9z1"/>
+                <outlet property="startBeacon" destination="bbu-Pa-d57" id="3KX-eM-FmZ"/>
                 <outlet property="statusMenu" destination="YJL-ob-tBd" id="QbR-SX-am7"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
@@ -54,14 +60,14 @@
         <window title="iBeacon Simulator" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="ibeaconSettings" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="367" height="269"/>
+            <rect key="contentRect" x="335" y="390" width="367" height="322"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
-            <view key="contentView" id="EiT-Mj-1SZ" customClass="settinsView">
-                <rect key="frame" x="0.0" y="0.0" width="367" height="269"/>
+            <view key="contentView" id="EiT-Mj-1SZ">
+                <rect key="frame" x="0.0" y="0.0" width="367" height="322"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ist-kp-qxm">
-                        <rect key="frame" x="27" y="53" width="184" height="18"/>
+                    <button id="Ist-kp-qxm">
+                        <rect key="frame" x="34" y="50" width="184" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Show statusbar animation" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ENe-Es-jDP">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -71,35 +77,44 @@
                             <action selector="changeSetStatusBarAnimation:" target="Voe-Tx-rLC" id="wZZ-8C-DTo"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oG7-ld-G9I">
-                        <rect key="frame" x="34" y="147" width="86" height="22"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" id="oG7-ld-G9I">
+                        <rect key="frame" x="36" y="143" width="60" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="1" drawsBackground="YES" id="46i-hn-hkC">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" title="0" drawsBackground="YES" id="46i-hn-hkC">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
+                        <connections>
+                            <action selector="editTextField:" target="Voe-Tx-rLC" id="Zs1-Bc-L4q"/>
+                        </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bqs-XL-BRB">
-                        <rect key="frame" x="138" y="147" width="87" height="22"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" id="bqs-XL-BRB">
+                        <rect key="frame" x="134" y="143" width="60" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="1" drawsBackground="YES" id="uZm-3v-AaE">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" title="0" drawsBackground="YES" id="uZm-3v-AaE">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
+                        <connections>
+                            <action selector="editTextField:" target="Voe-Tx-rLC" id="ArQ-Cd-Obz"/>
+                        </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4wu-DM-J9w">
-                        <rect key="frame" x="242" y="147" width="90" height="22"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" id="4wu-DM-J9w">
+                        <rect key="frame" x="230" y="143" width="60" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="-59" drawsBackground="YES" id="hfo-jD-cpP">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" title="-59" drawsBackground="YES" id="hfo-jD-cpP">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
+                        <connections>
+                            <action selector="editTextField:" target="Voe-Tx-rLC" id="IgN-KE-Enz"/>
+                        </connections>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QHb-m2-GMZ">
-                        <rect key="frame" x="34" y="126" width="41" height="17"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="QHb-m2-GMZ">
+                        <rect key="frame" x="36" y="122" width="41" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="major" id="Wqz-md-M5Q">
                             <font key="font" metaFont="system"/>
@@ -107,8 +122,8 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="83j-6K-2Ia">
-                        <rect key="frame" x="34" y="215" width="88" height="17"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="83j-6K-2Ia">
+                        <rect key="frame" x="34" y="266" width="88" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="iBeacon UUID" id="9AZ-2H-0eZ">
                             <font key="font" metaFont="system"/>
@@ -116,8 +131,8 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qS8-eM-HHj">
-                        <rect key="frame" x="136" y="126" width="42" height="17"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="qS8-eM-HHj">
+                        <rect key="frame" x="132" y="122" width="42" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="minor" id="Awf-Ny-dG7">
                             <font key="font" metaFont="system"/>
@@ -125,17 +140,17 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5R0-UF-p1Q">
-                        <rect key="frame" x="240" y="126" width="94" height="17"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="5R0-UF-p1Q">
+                        <rect key="frame" x="228" y="122" width="43" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="measured pwr" id="8fB-k3-fCm">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="power" id="8fB-k3-fCm">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="czz-4r-evZ">
-                        <rect key="frame" x="36" y="185" width="304" height="22"/>
+                    <textField verticalHuggingPriority="750" id="czz-4r-evZ">
+                        <rect key="frame" x="36" y="238" width="304" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="F9A7F5BA-15F9-476C-952C-0E3A3FDEBD5B" drawsBackground="YES" id="Ffb-fE-zy6">
                             <font key="font" metaFont="system"/>
@@ -143,16 +158,28 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G8g-75-Ib4">
-                        <rect key="frame" x="184" y="206" width="162" height="32"/>
+                    <textField verticalHuggingPriority="750" id="Dkv-A5-rzP">
+                        <rect key="frame" x="36" y="183" width="304" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="My personal iMac beacon" drawsBackground="YES" id="SDL-5J-Gi5">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" id="G8g-75-Ib4">
+                        <rect key="frame" x="184" y="261" width="162" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Generate new UUID" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3CL-TN-SDI">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="generateUUID:" target="Voe-Tx-rLC" id="hkn-UV-RRn"/>
+                        </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YHA-cr-J8d">
-                        <rect key="frame" x="27" y="33" width="146" height="18"/>
+                    <button id="YHA-cr-J8d">
+                        <rect key="frame" x="34" y="30" width="146" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Show statusbar text" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="fKP-SA-q6O">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -162,21 +189,87 @@
                             <action selector="changeSetStatusBarText:" target="Voe-Tx-rLC" id="adh-wU-2nf"/>
                         </connections>
                     </button>
-                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D1T-UZ-la7">
-                        <rect key="frame" x="114" y="144" width="19" height="27"/>
+                    <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" id="D1T-UZ-la7">
+                        <rect key="frame" x="90" y="140" width="19" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="BMM-fL-AYY"/>
+                        <stepperCell key="cell" continuous="YES" focusRingType="none" alignment="left" maxValue="65535" id="BMM-fL-AYY"/>
+                        <connections>
+                            <action selector="takeIntValueFrom:" target="oG7-ld-G9I" id="SBk-lH-eEt"/>
+                        </connections>
                     </stepper>
-                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6q0-0x-shV">
-                        <rect key="frame" x="218" y="144" width="19" height="27"/>
+                    <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" id="6q0-0x-shV">
+                        <rect key="frame" x="187" y="140" width="19" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="EQ4-qo-4e5"/>
+                        <stepperCell key="cell" continuous="YES" focusRingType="none" alignment="left" maxValue="65535" id="EQ4-qo-4e5"/>
+                        <connections>
+                            <action selector="takeIntValueFrom:" target="bqs-XL-BRB" id="XGB-x0-UVH"/>
+                        </connections>
                     </stepper>
-                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ssh-I9-6pc">
-                        <rect key="frame" x="324" y="144" width="19" height="27"/>
+                    <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" id="ssh-I9-6pc">
+                        <rect key="frame" x="283" y="140" width="19" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="krN-bu-46T"/>
+                        <stepperCell key="cell" continuous="YES" focusRingType="none" alignment="left" minValue="-100" id="krN-bu-46T"/>
+                        <connections>
+                            <action selector="takeIntValueFrom:" target="4wu-DM-J9w" id="RjP-dY-Uov"/>
+                        </connections>
                     </stepper>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="80k-gA-aoz">
+                        <rect key="frame" x="34" y="210" width="127" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="iBeacon description" id="MzA-Cr-WFe">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box autoresizesSubviews="NO" verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="dSl-YN-zmO">
+                        <rect key="frame" x="36" y="91" width="304" height="5"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="system"/>
+                    </box>
+                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="XgS-9S-Qa5">
+                        <rect key="frame" x="317" y="142" width="25" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="11E-DZ-McR">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="showHelp:" target="Voe-Tx-rLC" id="pVG-xu-IyA"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="bbu-Pa-d57">
+                        <rect key="frame" x="230" y="22" width="110" height="45"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" title="Start iBeacon" bezelStyle="texturedSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fu7-6v-daU">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="toggleIBeacon:" target="Voe-Tx-rLC" id="UGK-dr-VZY"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+        </window>
+        <window title="iBeacon info" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="ibeaconinfo" animationBehavior="default" id="1Oe-Uq-Ux9">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="486" height="569"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <view key="contentView" id="Orz-O5-Lka">
+                <rect key="frame" x="0.0" y="0.0" width="486" height="569"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <webView id="MW0-bR-I34">
+                        <rect key="frame" x="0.0" y="0.0" width="486" height="569"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
+                            <nil key="identifier"/>
+                        </webPreferences>
+                    </webView>
                 </subviews>
             </view>
         </window>

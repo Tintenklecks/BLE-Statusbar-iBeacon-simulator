@@ -6,9 +6,6 @@
 //  Copyright (c) 2014 IBMobile. All rights reserved.
 //
 
-#import "settinsView.h"
-#import "AppDelegate.h"
-
 @interface settinsView ()
 
 
