@@ -1,0 +1,42 @@
+<html>
+<head>
+<meta charset="UTF-8" />
+
+<style type="text/css">
+
+body {
+	font-family: Verdana, Arial, sans-serif;
+}
+
+h1,h2,h3 {
+font-family: "Gill Sans" ;
+	font-style: normal;
+	font-weight: normal;
+}
+
+</style>
+</head>
+<body>
+<h1 align="left">What do all these settings mean</h1>
+Well ... looks difficult, but it isn´t.
+
+<h2>The token´s identifier</h2>
+The most important one is the <b>UUID</b>. Thats the unique ID of all of your your beacons (in this case your MacBook, Mac Pro or iMac). This beacon is scanned, whatever you put in the rest of the text fields! So: All your beacons have the same UUID!!! 
+
+Just think the UUID is your companies name ... well ... sounds not the best choice to pronounce ... but it´s IT language this Hex-digit stuff
+
+<h2>The description</h2>
+Well, you can leave this blank. That´s just an info that´s even not transmitted by the Bluetooth Low Energy  (BLE) transmitter (your Mac). It´s just that these UUID infos and parameters are normally stored in a list online i. e. on a web server and the app that uses these infos can display this iBeacon description.
+
+<h2>major and minor</h2>
+So these are the numbers you can play with to identify this beacon on the client side, i.e. on the iPhone or iPad. So if the UUID is your company name, then the <b>major</b> is the branch, the agency, the store. And the  <b>minor</b> is a place within the store, for example the cash point, the service point or the toilets.
+
+<h2>power</h2>
+Woohoo .... this is a bit tricky. That´s not an information that is sent. But it´s used to send the right information. Confusing? Yepp, I know. I was at this point as well. Well, but its pretty easy. This is a calibration value. And there - as we say in german - "the cat bites in her tail", which means that you can´t set it up until you have a device that can measure the value. So what you need is a device - i.e. an iPhone - that gets a connection to the sent iBeacon and that shows you the RSSI (received signal strength Indicator) value. There are several apps on the app store. A free one is <a href="https://itunes.apple.com/de/app/locate-for-ibeacon/id738709014?mt=8">Locate for iBeacon</a> . And then you measure the power (the strenght of the bluetooth signal) that arrives in your iPhone at a distance of 1 meter (100 centimeter - 39,37 inches - 3,2808 feet)<br><br>    
+
+So this is a number like -59. And that´s what you enter in this iBeacon Simulator dialog ... and restart the transmitting (or advertising - for using the right term)  process<br><br>
+
+That´s easy, eh? That´s what I told you!
+
+</body>
+</html>
