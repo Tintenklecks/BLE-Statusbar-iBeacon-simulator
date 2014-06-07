@@ -68,32 +68,6 @@
 	// _infoWebView open
 }
 
-- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
-	NSLog(@"STATE: %d", peripheral.state);
-    
-    
-    
-	switch (peripheral.state) {
-		default:
-			break;
-            
-		case CBPeripheralManagerStateUnknown: NSLog(@"Unknown"); break;
-            
-		case CBPeripheralManagerStateResetting: NSLog(@"Resetting"); break;
-            
-		case CBPeripheralManagerStateUnsupported: NSLog(@"Unsupported"); break;
-            
-		case CBPeripheralManagerStateUnauthorized: NSLog(@"Unauthorized"); break;
-            
-		case CBPeripheralManagerStatePoweredOff: NSLog(@"Power Off"); break;
-            
-		case CBPeripheralManagerStatePoweredOn: NSLog(@"Power ON"); break;
-	}
-    
-	if (peripheral.state == CBPeripheralManagerStatePoweredOn) {
-	}
-}
-
 - (void)applicationWillTerminate:(NSNotification *)notification {
 	[self saveSettings];
 }
@@ -114,7 +88,7 @@
 		default:
 			break;
 	}
-	NSLog(@"result %d",  result);
+	NSLog(@"result %ld",  result);
 }
 
 #pragma mark - Load and save Settings
@@ -207,7 +181,7 @@
 #pragma mark - StatusbarIcon Methods
 
 - (void)startAnimating {
-	NSLog(@"START!!!");
+	// NSLog(@"START!!!");
     
 	if (_animTimer) [_animTimer invalidate];
     
@@ -226,7 +200,7 @@
 }
 
 - (void)stopAnimating {
-	NSLog(@"STOP!!!");
+	// NSLog(@"STOP!!!");
 	if (_animTimer) [_animTimer invalidate];
 	[self updateImage:nil];
 }
@@ -294,9 +268,11 @@
 		BLCBeaconAdvertisementData *beaconData = [[BLCBeaconAdvertisementData alloc] initWithProximityUUID:proximityUUID
 		                                                                                             major:_majorField.integerValue
 		                                                                                             minor:_minorField.integerValue
+                                                  
 		                                                                                     measuredPower:_pwrField.integerValue];
         
 		[_manager startAdvertising:beaconData.beaconAdvertisement];
+        
 		[_UUIDField setEnabled:NO];
 		[_majorField setEnabled:NO];
 		[_minorField setEnabled:NO];
@@ -305,15 +281,15 @@
 		[self startAnimating];
 		[self setStatusText:nil];
 		[_beaconStatusMenu setTitle:@"Stop iBeacon"];
-
+        
 		[self setStatusText:@"iBeacon ON"];
 	}
-
-    [_startBeacon setTitle: _beaconStatusMenu.title];
-
-
-
-    //	if (ISBEACONSENDING) {
+    
+	[_startBeacon setTitle:_beaconStatusMenu.title];
+    
+    
+    
+	//	if (ISBEACONSENDING) {
 	//		_beaconStatusMenu.tag = 0;
 	//		[self stopAnimating];
 	//		[_beaconStatusMenu setTitle:@"Start iBeacon"];
@@ -379,6 +355,144 @@
 
 - (IBAction)showHelp:(id)sender {
 	[_infoWindow setIsVisible:YES];
+}
+
+#pragma mark - CBPeripheralManager Delegate
+
+- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
+	NSLog(@"STATE: %ld", peripheral.state);
+    
+    
+    
+	switch (peripheral.state) {
+		default:
+			break;
+            
+		case CBPeripheralManagerStateUnknown: NSLog(@"Unknown"); break;
+            
+		case CBPeripheralManagerStateResetting: NSLog(@"Resetting"); break;
+            
+		case CBPeripheralManagerStateUnsupported: NSLog(@"Unsupported"); break;
+            
+		case CBPeripheralManagerStateUnauthorized: NSLog(@"Unauthorized"); break;
+            
+		case CBPeripheralManagerStatePoweredOff: NSLog(@"Power Off"); break;
+            
+		case CBPeripheralManagerStatePoweredOn: NSLog(@"Power ON"); break;
+	}
+    
+	if (peripheral.state == CBPeripheralManagerStatePoweredOn) {
+	}
+}
+
+/*!
+ *  @method peripheralManager:willRestoreState:
+ *
+ *  @param peripheral   The peripheral manager providing this information.
+ *  @param dict
+ *
+ *  @discussion
+ *
+ */
+- (void)peripheralManager:(CBPeripheralManager *)peripheral willRestoreState:(NSDictionary *)dict {
+}
+
+/*!
+ *  @method peripheralManagerDidStartAdvertising:error:
+ *
+ *  @param peripheral   The peripheral manager providing this information.
+ *  @param error        If an error occurred, the cause of the failure.
+ *
+ *  @discussion         This method returns the result of a @link startAdvertising: @/link call. If advertisement could
+ *                      not be started, the cause will be detailed in the <i>error</i> parameter.
+ *
+ */
+- (void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error {
+}
+
+/*!
+ *  @method peripheralManager:didAddService:error:
+ *
+ *  @param peripheral   The peripheral manager providing this information.
+ *  @param service      The service that was added to the local database.
+ *  @param error        If an error occurred, the cause of the failure.
+ *
+ *  @discussion         This method returns the result of an @link addService: @/link call. If the service could
+ *                      not be published to the local database, the cause will be detailed in the <i>error</i> parameter.
+ *
+ */
+- (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error {
+}
+
+/*!
+ *  @method peripheralManager:central:didSubscribeToCharacteristic:
+ *
+ *  @param peripheral       The peripheral manager providing this update.
+ *  @param central          The central that issued the command.
+ *  @param characteristic   The characteristic on which notifications or indications were enabled.
+ *
+ *  @discussion             This method is invoked when a central configures <i>characteristic</i> to notify or indicate.
+ *                          It should be used as a cue to start sending updates as the characteristic value changes.
+ *
+ */
+- (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic {
+}
+
+/*!
+ *  @method peripheralManager:central:didUnsubscribeFromCharacteristic:
+ *
+ *  @param peripheral       The peripheral manager providing this update.
+ *  @param central          The central that issued the command.
+ *  @param characteristic   The characteristic on which notifications or indications were disabled.
+ *
+ *  @discussion             This method is invoked when a central removes notifications/indications from <i>characteristic</i>.
+ *
+ */
+- (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic {
+}
+
+/*!
+ *  @method peripheralManager:didReceiveReadRequest:
+ *
+ *  @param peripheral   The peripheral manager requesting this information.
+ *  @param request      A <code>CBATTRequest</code> object.
+ *
+ *  @discussion         This method is invoked when <i>peripheral</i> receives an ATT request for a characteristic with a dynamic value.
+ *                      For every invocation of this method, @link respondToRequest:withResult: @/link must be called.
+ *
+ *  @see                CBATTRequest
+ *
+ */
+- (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request {
+}
+
+/*!
+ *  @method peripheralManager:didReceiveWriteRequests:
+ *
+ *  @param peripheral   The peripheral manager requesting this information.
+ *  @param requests     A list of one or more <code>CBATTRequest</code> objects.
+ *
+ *  @discussion         This method is invoked when <i>peripheral</i> receives an ATT request or command for one or more characteristics with a dynamic value.
+ *                      For every invocation of this method, @link respondToRequest:withResult: @/link should be called exactly once. If <i>requests</i> contains
+ *                      multiple requests, they must be treated as an atomic unit. If the execution of one of the requests would cause a failure, the request
+ *                      and error reason should be provided to <code>respondToRequest:withResult:</code> and none of the requests should be executed.
+ *
+ *  @see                CBATTRequest
+ *
+ */
+- (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray *)requests {
+}
+
+/*!
+ *  @method peripheralManagerIsReadyToUpdateSubscribers:
+ *
+ *  @param peripheral   The peripheral manager providing this update.
+ *
+ *  @discussion         This method is invoked after a failed call to @link updateValue:forCharacteristic:onSubscribedCentrals: @/link, when <i>peripheral</i> is again
+ *                      ready to send characteristic value updates.
+ *
+ */
+- (void)peripheralManagerIsReadyToUpdateSubscribers:(CBPeripheralManager *)peripheral {
 }
 
 @end;
