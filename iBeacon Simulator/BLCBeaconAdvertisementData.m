@@ -70,8 +70,6 @@
     
     NSMutableData *advertisement = [NSMutableData dataWithBytes:advertisementBytes length:21];
     
-    // CBAdvertisementDataLocalNameKey:@"Custom Name"
-    
     return [NSDictionary dictionaryWithObject:advertisement forKey:beaconKey];
 }
 
